@@ -9,6 +9,13 @@ import { swaggerSpec } from "./docs/swagger";
 
 const app = express();
 
+app.get("/", (req, res) => {
+  res.json({
+    name: "DevFlow API",
+    status: "online",
+    documentation: "/api-docs"
+  });
+});
 
 app.use(express.json());
 
