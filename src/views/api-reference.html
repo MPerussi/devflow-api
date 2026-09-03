@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevFlow API Reference</title>
+
+  <style>
+    :root {
+      --bg: #080b12;
+      --bg-secondary: #0d111a;
+      --surface: #111722;
+      --surface-hover: #151c29;
+      --surface-soft: #0c111a;
+
+      --border: rgba(255,255,255,.08);
+      --border-strong: rgba(255,255,255,.13);
+
+      --text: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --muted: #7f8da3;
+
+      --blue: #5b8cff;
+      --blue-light: #7aa2ff;
+      --blue-soft: rgba(91,140,255,.12);
+
+      --green: #35d399;
+      --green-soft: rgba(53,211,153,.11);
+
+      --orange: #f6a04d;
+      --orange-soft: rgba(246,160,77,.11);
+
+      --red: #ff6b7a;
+      --red-soft: rgba(255,107,122,.11);
+
+      --purple: #a78bfa;
+
+      --shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 80% -10%,
+          rgba(91,140,255,.12),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 10% 20%,
+          rgba(167,139,250,.06),
+          transparent 30%
+        ),
+        var(--bg);
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* =========================
+       TOPBAR
+    ========================= */
+
+    .topbar {
+      height: 68px;
+
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 5vw;
+
+      background: rgba(8,11,18,.82);
+      border-bottom: 1px solid var(--border);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-size: 16px;
+      font-weight: 750;
+      letter-spacing: -.02em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--purple)
+        );
+
+      color: white;
+
+      font-size: 11px;
+      font-weight: 900;
+
+      box-shadow:
+        0 8px 25px rgba(91,140,255,.25);
+
+      object-fit: cover;
+    }
+
+    .topbar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 9px 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      color: var(--text-secondary);
+
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+
+      transition: .2s ease;
+    }
+
+    .topbar a:hover {
+      color: white;
+      background: var(--surface);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .shell {
+      width: min(1320px, 90vw);
+
+      margin: 0 auto;
+
+      padding:
+        70px
+        0
+        100px;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.4fr)
+        minmax(300px, .6fr);
+
+      gap: 70px;
+
+      align-items: end;
+
+      margin-bottom: 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      color: var(--blue-light);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      text-transform: uppercase;
+      letter-spacing: .14em;
+    }
+
+    .eyebrow::before {
+      content: "";
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 0 4px var(--green-soft);
+    }
+
+    h1 {
+      margin: 18px 0 22px;
+
+      font-size:
+        clamp(46px, 7vw, 82px);
+
+      line-height: .95;
+
+      letter-spacing: -.065em;
+
+      font-weight: 800;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff 20%,
+          #a9b8d3 80%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 680px;
+
+      margin: 0;
+
+      color: var(--text-secondary);
+
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .hero-note {
+      position: relative;
+
+      padding: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.045),
+          rgba(255,255,255,.018)
+        );
+
+      border: 1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
+
+      overflow: hidden;
+    }
+
+    .hero-note::before {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--blue),
+          var(--purple)
+        );
+    }
+
+    .hero-note strong {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: .12em;
+    }
+
+    .hero-note code {
+      display: block;
+
+      margin-bottom: 10px;
+
+      color: var(--blue-light);
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+
+      font-size: 13px;
+      word-break: break-all;
+    }
+
+    .hero-note span {
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       FLOW
+    ========================= */
+
+    .flow {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 1px;
+
+      margin-bottom: 55px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      background: var(--border);
+
+      box-shadow: var(--shadow);
+    }
+
+    .flow-step {
+      position: relative;
+
+      padding: 21px;
+
+      background: var(--surface);
+
+      transition: .2s ease;
+    }
+
+    .flow-step:hover {
+      background: var(--surface-hover);
+    }
+
+    .flow-step strong {
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: var(--blue-light);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: .1em;
+    }
+
+    .flow-step span {
+      color: var(--text-secondary);
+
+      font-size: 13px;
+    }
+
+    /* =========================
+       WORKSPACE
+    ========================= */
+
+    .workspace {
+      display: grid;
+
+      grid-template-columns:
+        220px
+        minmax(0, 1fr);
+
+      gap: 55px;
+
+      align-items: start;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      position: sticky;
+      top: 92px;
+    }
+
+    .sidebar-title {
+      margin-bottom: 14px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+
+    .sidebar a {
+      position: relative;
+
+      display: block;
+
+      padding: 9px 12px;
+
+      margin-bottom: 3px;
+
+      color: var(--muted);
+
+      text-decoration: none;
+
+      border-radius: 8px;
+
+      font-size: 13px;
+      font-weight: 550;
+
+      transition: .2s ease;
+    }
+
+    .sidebar a:hover {
+      color: white;
+      background: var(--surface);
+    }
+
+    .token-box {
+      margin-top: 28px;
+
+      padding: 16px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(53,211,153,.06),
+          rgba(53,211,153,.015)
+        );
+
+      border: 1px solid rgba(53,211,153,.14);
+
+      border-radius: 13px;
+    }
+
+    .token-box label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: var(--green);
+
+      font-size: 9px;
+      font-weight: 800;
+
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .token-state {
+      color: var(--muted);
+
+      font-size: 11px;
+
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    .token-state.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .clear-token {
+      margin-top: 10px;
+
+      padding: 0;
+
+      border: 0;
+
+      background: transparent;
+
+      color: var(--red);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      transition: .2s;
+    }
+
+    .clear-token:hover {
+      opacity: .75;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    section {
+      scroll-margin-top: 95px;
+
+      margin-bottom: 55px;
+    }
+
+    .step-intro {
+      margin-bottom: 15px;
+
+      padding: 4px 0 5px 17px;
+
+      border-left: 2px solid var(--blue);
+    }
+
+    .step-intro span {
+      display: block;
+
+      margin-bottom: 5px;
+
+      color: var(--blue-light);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .step-intro p {
+      margin: 0;
+
+      color: var(--text-secondary);
+
+      font-size: 13px;
+    }
+
+    /* =========================
+       ENDPOINT
+    ========================= */
+
+    .endpoint {
+      margin: 14px 0;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,.015)
+        );
+
+      border: 1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      box-shadow:
+        0 10px 35px rgba(0,0,0,.16);
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .endpoint:hover {
+      border-color: var(--border-strong);
+    }
+
+    .endpoint[open] {
+      border-color:
+        rgba(91,140,255,.28);
+
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.24);
+    }
+
+    .endpoint summary {
+      list-style: none;
+
+      display: grid;
+
+      grid-template-columns:
+        72px
+        minmax(0, 1fr)
+        auto;
+
+      gap: 16px;
+
+      align-items: center;
+
+      padding: 19px 21px;
+
+      cursor: pointer;
+
+      user-select: none;
+    }
+
+    .endpoint summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .endpoint summary:after {
+      content: "⌄";
+
+      color: var(--muted);
+
+      font-size: 17px;
+
+      transition: transform .2s;
+    }
+
+    .endpoint[open] summary:after {
+      transform: rotate(180deg);
+    }
+
+    /* =========================
+       METHODS
+    ========================= */
+
+    .method {
+      padding: 6px 7px;
+
+      border-radius: 7px;
+
+      text-align: center;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+
+      font-size: 10px;
+      font-weight: 900;
+
+      letter-spacing: .03em;
+    }
+
+    .get {
+      color: var(--green);
+      background: var(--green-soft);
+      border: 1px solid rgba(53,211,153,.16);
+    }
+
+    .post {
+      color: var(--blue-light);
+      background: var(--blue-soft);
+      border: 1px solid rgba(91,140,255,.16);
+    }
+
+    .put {
+      color: var(--orange);
+      background: var(--orange-soft);
+      border: 1px solid rgba(246,160,77,.16);
+    }
+
+    .delete {
+      color: var(--red);
+      background: var(--red-soft);
+      border: 1px solid rgba(255,107,122,.16);
+    }
+
+    .path {
+      color: white;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      word-break: break-word;
+    }
+
+    .summary-description {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .auth-pill {
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      color: var(--orange);
+
+      background: var(--orange-soft);
+
+      border: 1px solid rgba(246,160,77,.14);
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      white-space: nowrap;
+    }
+
+    /* =========================
+       ENDPOINT BODY
+    ========================= */
+
+    .endpoint-body {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        minmax(280px, .85fr);
+
+      gap: 30px;
+
+      padding: 25px;
+
+      border-top: 1px solid var(--border);
+
+      background: rgba(0,0,0,.08);
+    }
+
+    .endpoint-body h3 {
+      margin: 0 0 12px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 800;
+
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    /* =========================
+       INPUTS
+    ========================= */
+
+    .field-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 13px;
+    }
+
+    .field {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: var(--text-secondary);
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .field label span {
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 500;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+
+      border: 1px solid var(--border-strong);
+
+      background:
+        rgba(5,8,14,.75);
+
+      color: white;
+
+      border-radius: 9px;
+
+      padding: 11px 12px;
+
+      outline: none;
+
+      transition:
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
+    }
+
+    input {
+      height: 42px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #4f5d72;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color:
+        rgba(91,140,255,.65);
+
+      background: rgba(5,8,14,.95);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(91,140,255,.08);
+    }
+
+    textarea {
+      min-height: 125px;
+
+      resize: vertical;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .execute {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-top: 16px;
+
+      min-height: 42px;
+
+      padding: 0 18px;
+
+      border: 0;
+
+      border-radius: 9px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          #466fe0
+        );
+
+      font-size: 12px;
+      font-weight: 750;
+
+      box-shadow:
+        0 8px 25px
+        rgba(91,140,255,.18);
+
+      transition:
+        transform .2s,
+        box-shadow .2s,
+        opacity .2s;
+    }
+
+    .execute::before {
+      content: "▶";
+
+      font-size: 8px;
+    }
+
+    .execute:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 12px 30px
+        rgba(91,140,255,.28);
+    }
+
+    .execute:active {
+      transform: translateY(0);
+    }
+
+    .execute:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .hint {
+      margin: 0 0 16px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    /* =========================
+       RESPONSE
+    ========================= */
+
+    pre {
+      margin: 0;
+
+      padding: 17px;
+
+      min-height: 155px;
+
+      overflow: auto;
+
+      background:
+        #070a10;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 11px;
+
+      color: #b9c7dc;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+
+      font-size: 11px;
+      line-height: 1.65;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .response-meta {
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-bottom: 7px;
+
+      color: var(--muted);
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      letter-spacing: .08em;
+    }
+
+    .status-ok {
+      color: var(--green);
+    }
+
+    .status-error {
+      color: var(--red);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+      margin-top: 15px;
+
+      padding-top: 25px;
+
+      border-top: 1px solid var(--border);
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      text-align: center;
+    }
+
+    .footer a {
+      color: var(--blue-light);
+
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 950px) {
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .sidebar {
+        position: static;
+
+        display: flex;
+
+        gap: 5px;
+
+        overflow-x: auto;
+
+        padding-bottom: 5px;
+      }
+
+      .sidebar-title {
+        display: none;
+      }
+
+      .sidebar a {
+        white-space: nowrap;
+        margin: 0;
+      }
+
+      .token-box {
+        display: none;
+      }
+
+      .endpoint-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      .shell {
+        width: 92vw;
+
+        padding-top: 45px;
+      }
+
+      .topbar {
+        padding:
+          0 4vw;
+      }
+
+      .flow {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      h1 {
+        font-size: 50px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 520px) {
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .endpoint summary {
+        grid-template-columns:
+          65px
+          minmax(0, 1fr);
+      }
+
+      .endpoint summary:after {
+        display: none;
+      }
+
+      .auth-pill {
+        grid-column: 2;
+
+        width: max-content;
+      }
+
+      .endpoint-body {
+        padding: 18px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .topbar a {
+        font-size: 11px;
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header class="topbar">
+
+<div class="brand">
+  <img class="brand-mark" src="/code.png" alt="DevFlow">
+  DevFlow API
+</div>
+
+<a href="/test-api">
+  ← Voltar para o painel
+</a>
+
+  </header>
+
+  <main class="shell">
+
+<div class="hero">
+
+  <div>
+
+    <div class="eyebrow">
+      Documentação técnica · v1
+    </div>
+
+    <h1>
+      Construa.<br>
+      Teste.<br>
+      Entregue.
+    </h1>
+
+    <p>
+      Referência interativa da DevFlow API.
+      Explore os endpoints, envie requisições reais
+      e visualize as respostas diretamente no navegador.
+    </p>
+
+  </div>
+
+  <aside class="hero-note">
+
+    <strong>BASE URL</strong>
+
+    <code id="base-url"></code>
+
+    <span>
+      As rotas protegidas utilizam automaticamente
+      o token JWT salvo nesta sessão.
+    </span>
+
+  </aside>
+
+</div>
+
+
+<div class="flow" aria-label="Fluxo recomendado">
+
+  <div class="flow-step">
+    <strong>01 · IDENTIDADE</strong>
+    <span>Crie seu usuário</span>
+  </div>
+
+  <div class="flow-step">
+    <strong>02 · ACESSO</strong>
+    <span>Faça login e receba o JWT</span>
+  </div>
+
+  <div class="flow-step">
+    <strong>03 · PROJETO</strong>
+    <span>Crie e consulte projetos</span>
+  </div>
+
+  <div class="flow-step">
+    <strong>04 · EXECUÇÃO</strong>
+    <span>Gerencie suas tarefas</span>
+  </div>
+
+</div>
+
+
+<div class="workspace">
+
+  <nav class="sidebar" aria-label="Seções da API">
+
+    <div class="sidebar-title">
+      Navegar
+    </div>
+
+    <a href="#step-1">
+      1. Criar usuário
+    </a>
+
+    <a href="#step-2">
+      2. Fazer login
+    </a>
+
+    <a href="#step-3">
+      3. Criar projeto
+    </a>
+
+    <a href="#step-5">
+      4. Trabalhar com tarefas
+    </a>
+
+    <div class="token-box">
+
+      <label>
+        JWT em sessão
+      </label>
+
+      <div
+        id="token-state"
+        class="token-state"
+      >
+        Nenhum token armazenado
+      </div>
+
+      <button
+        class="clear-token"
+        id="clear-token"
+        type="button"
+      >
+        Remover token
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <div id="reference"></div>
+
+</div>
+
+
+<p class="footer">
+  DevFlow API · Express + TypeScript + Prisma ·
+  <a href="/api-reference">
+    Voltar para a documentação
+  </a>
+</p>
+
+  </main>
+
+  <script>
+
+    const baseUrl = '/api';
+
+    const tokenKey = 'devflow-api-token';
+
+    document.getElementById('base-url').textContent =
+      window.location.origin + baseUrl;
+
+
+    const endpoints = [
+
+      {
+        step: 1,
+        category: 'Usuários',
+        instruction:
+          'Comece criando uma conta. Use um e-mail que ainda não esteja cadastrado.',
+        method: 'POST',
+        path: '/users',
+        description:
+          'Cria uma conta de usuário.',
+        body: {
+          name: 'Joao',
+          email: 'joao@email.com',
+          password: '123456'
+        },
+        response:
+`{
+  "id": "uuid",
+  "name": "Joao",
+  "email": "joao@email.com"
+}`,
+        public: true
+      },
+
+      {
+        step: 2,
+        category: 'Autenticação',
+        instruction:
+          'Entre com o usuário criado. O token retornado será salvo automaticamente nesta sessão.',
+        method: 'POST',
+        path: '/login',
+        description:
+          'Valida as credenciais e retorna um JWT.',
+        body: {
+          email: 'joao@email.com',
+          password: '123456'
+        },
+        response:
+`{
+  "token": "eyJhbGciOiJIUzI1NiIs..."
+}`,
+        public: true
+      },
+
+      {
+        step: 3,
+        category: 'Projetos',
+        instruction:
+          'Com o JWT salvo, crie seu primeiro projeto. O projeto pertence ao usuário autenticado.',
+        method: 'POST',
+        path: '/projects',
+        description:
+          'Cria um projeto para o usuário autenticado.',
+        body: {
+          title: 'DevFlow API',
+          description:
+            'Sistema de gerenciamento de projetos'
+        },
+        response:
+`{
+  "id": "uuid",
+  "title": "DevFlow API",
+  "description": "Sistema de gerenciamento de projetos"
+}`,
+        requiresAuth: true
+      },
+
+      {
+        step: 4,
+        category: 'Projetos',
+        instruction:
+          'Confira os projetos associados à sua conta e copie o ID de um projeto para usar nas tarefas.',
+        method: 'GET',
+        path: '/projects',
+        description:
+          'Lista os projetos do usuário autenticado.',
+        response:
+`[
+  {
+    "id": "uuid",
+    "title": "DevFlow API",
+    "status": "PENDING"
+  }
+]`,
+        requiresAuth: true
+      },
+
+      {
+        step: 5,
+        category: 'Tarefas',
+        instruction:
+          'Crie uma tarefa usando o projectId retornado na etapa anterior.',
+        method: 'POST',
+        path: '/tasks',
+        description:
+          'Cria uma tarefa vinculada a um projeto.',
+        body: {
+          title: 'Criar autenticação JWT',
+          projectId: 'uuid-do-projeto'
+        },
+        response:
+`{
+  "id": "uuid",
+  "title": "Criar autenticação JWT",
+  "status": "TODO"
+}`,
+        requiresAuth: true
+      },
+
+      {
+        step: 6,
+        category: 'Tarefas',
+        instruction:
+          'Liste as tarefas do projeto para encontrar o ID da tarefa criada.',
+        method: 'GET',
+        path: '/tasks/{projectId}',
+        description:
+          'Lista as tarefas de um projeto.',
+        params: ['projectId'],
+        response:
+`[
+  {
+    "id": "uuid",
+    "title": "Criar autenticação JWT",
+    "status": "TODO"
+  }
+]`,
+        requiresAuth: true
+      },
+
+      {
+        step: 7,
+        category: 'Tarefas',
+        instruction:
+          'Atualize o status usando o ID da tarefa. Por exemplo, marque-a como DONE.',
+        method: 'PUT',
+        path: '/tasks/{id}',
+        description:
+          'Atualiza o status de uma tarefa.',
+        params: ['id'],
+        body: {
+          status: 'DONE'
+        },
+        response:
+`{
+  "id": "uuid",
+  "status": "DONE"
+}`,
+        requiresAuth: true
+      },
+
+      {
+        step: 8,
+        category: 'Tarefas',
+        instruction:
+          'Quando necessário, remova a tarefa usando o mesmo ID.',
+        method: 'DELETE',
+        path: '/tasks/{id}',
+        description:
+          'Remove uma tarefa.',
+        params: ['id'],
+        response:
+`{
+  "message": "Tarefa removida"
+}`,
+        requiresAuth: true
+      },
+
+      {
+        step: 9,
+        category: 'Usuários',
+        instruction:
+          'Depois do login, você também pode consultar os usuários cadastrados.',
+        method: 'GET',
+        path: '/users',
+        description:
+          'Lista todos os usuários cadastrados.',
+        response:
+`[
+  {
+    "id": "uuid",
+    "name": "Joao",
+    "email": "joao@email.com"
+  }
+]`,
+        requiresAuth: true
+      }
+
+    ];
+
+
+    function escapeHtml(value) {
+
+      return String(value).replace(
+        /[&<>'"]/g,
+
+        char => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[char])
+      );
+
+    }
+
+
+    function inputFields(endpoint, index) {
+
+      const fields = [];
+
+      (endpoint.params || []).forEach(
+        param => fields.push(
+          '<div class="field">' +
+          '<label for="param-' +
+          index +
+          '-' +
+          param +
+          '">' +
+          param +
+          ' <span>(path)</span></label>' +
+          '<input id="param-' +
+          index +
+          '-' +
+          param +
+          '" data-param="' +
+          param +
+          '" placeholder="UUID" />' +
+          '</div>'
+        )
+      );
+
+
+      if (endpoint.body) {
+
+        fields.push(
+          '<div class="field full">' +
+          '<label for="body-' +
+          index +
+          '">Corpo JSON</label>' +
+          '<textarea id="body-' +
+          index +
+          '">' +
+          escapeHtml(
+            JSON.stringify(
+              endpoint.body,
+              null,
+              2
+            )
+          ) +
+          '</textarea>' +
+
+      '</div>'
+    );
+
+  }
+
+
+  return fields.length
+
+    ? '<div class="field-grid">' +
+      fields.join('') +
+      '</div>'
+
+    : '<p class="hint">' +
+      'Este endpoint não possui parâmetros ou corpo de requisição.' +
+      '</p>';
+
+}
+
+
+function endpointMarkup(endpoint, index) {
+
+  const auth =
+    endpoint.requiresAuth
+
+      ? '<span class="auth-pill">' +
+        'JWT obrigatório' +
+        '</span>'
+
+      : '<span class="auth-pill" style="' +
+        'color:var(--green);' +
+        'background:var(--green-soft);' +
+        'border-color:rgba(53,211,153,.14)' +
+        '">' +
+        'Público' +
+        '</span>';
+
+
+  return (
+
+    '<section class="step" id="step-' +
+    endpoint.step +
+    '">' +
+
+    '<div class="step-intro">' +
+
+    '<span>' +
+    'ETAPA ' +
+    endpoint.step +
+    ' · ' +
+    endpoint.category +
+    '</span>' +
+
+    '<p>' +
+    endpoint.instruction +
+    '</p>' +
+
+    '</div>' +
+
+    '<details class="endpoint" ' +
+    (endpoint.step === 1 ? 'open' : '') +
+    '>' +
+
+    '<summary>' +
+
+    '<span class="method ' +
+    endpoint.method.toLowerCase() +
+    '">' +
+    endpoint.method +
+    '</span>' +
+
+    '<div>' +
+
+    '<div class="path">' +
+    endpoint.path +
+    '</div>' +
+
+    '<div class="summary-description">' +
+    endpoint.description +
+    '</div>' +
+
+    '</div>' +
+
+    auth +
+
+    '</summary>' +
+
+    '<div class="endpoint-body">' +
+
+    '<div>' +
+
+    '<h3>Parâmetros e requisição</h3>' +
+
+    inputFields(endpoint, index) +
+
+    '<button ' +
+    'class="execute" ' +
+    'data-index="' +
+    index +
+    '" ' +
+    'type="button">' +
+    'Executar requisição' +
+    '</button>' +
+
+    '</div>' +
+
+    '<div>' +
+
+    '<h3>Resposta esperada</h3>' +
+
+    '<div class="response-meta">' +
+    '<span>EXEMPLO</span>' +
+    '<span>JSON</span>' +
+    '</div>' +
+
+    '<pre>' +
+    escapeHtml(endpoint.response) +
+    '</pre>' +
+
+    '<div class="response-meta" style="margin-top:18px">' +
+    '<span>RESPOSTA DA API</span>' +
+    '<span class="live-status" id="status-' +
+    index +
+    '">Aguardando</span>' +
+    '</div>' +
+
+    '<pre id="result-' +
+    index +
+    '">' +
+    'Execute para visualizar o status HTTP e o JSON retornado.' +
+    '</pre>' +
+
+    '</div>' +
+
+    '</div>' +
+
+    '</details>' +
+
+    '</section>'
+
+  );
+
+}
+
+
+document.getElementById('reference').innerHTML =
+  endpoints
+    .map(
+      (endpoint, index) =>
+        endpointMarkup(endpoint, index)
+    )
+    .join('');
+
+
+function updateTokenState() {
+
+  const token =
+    sessionStorage.getItem(tokenKey);
+
+  const state =
+    document.getElementById('token-state');
+
+  state.textContent =
+    token
+      ? token.slice(0, 22) + '...'
+      : 'Nenhum token armazenado';
+
+  state.classList.toggle(
+    'active',
+    Boolean(token)
+  );
+
+}
+
+
+updateTokenState();
+
+
+document
+  .getElementById('clear-token')
+  .addEventListener(
+    'click',
+    () => {
+
+      sessionStorage.removeItem(
+        tokenKey
+      );
+
+      updateTokenState();
+
+    }
+  );
+
+
+document
+  .querySelectorAll('.execute')
+  .forEach(
+    button =>
+      button.addEventListener(
+        'click',
+        async () => {
+
+          const index =
+            Number(button.dataset.index);
+
+          const endpoint =
+            endpoints[index];
+
+          const result =
+            document.getElementById(
+              'result-' + index
+            );
+
+          const status =
+            document.getElementById(
+              'status-' + index
+            );
+
+          let requestPath =
+            endpoint.path;
+
+
+          endpoint.params?.forEach(
+            param => {
+
+              const value =
+                document.getElementById(
+                  'param-' +
+                  index +
+                  '-' +
+                  param
+                ).value.trim();
+
+              requestPath =
+                requestPath.replace(
+                  '{' +
+                  param +
+                  '}',
+                  encodeURIComponent(value)
+                );
+
+            }
+          );
+
+
+          const headers = {};
+
+          const token =
+            sessionStorage.getItem(
+              tokenKey
+            );
+
+
+          if (token) {
+            headers.Authorization =
+              'Bearer ' + token;
+          }
+
+
+          let body;
+
+          const bodyField =
+            document.getElementById(
+              'body-' + index
+            );
+
+
+          if (bodyField) {
+
+            try {
+
+              body =
+                JSON.parse(
+                  bodyField.value
+                );
+
+              headers['Content-Type'] =
+                'application/json';
+
+            }
+
+            catch (error) {
+
+              status.textContent =
+                'JSON inválido';
+
+              status.className =
+                'live-status status-error';
+
+              result.textContent =
+                error.message;
+
+              return;
+
+            }
+
+          }
+
+
+          button.disabled = true;
+
+          button.textContent =
+            'Executando...';
+
+          status.textContent =
+            'Enviando';
+
+
+          try {
+
+            const response =
+              await fetch(
+                baseUrl + requestPath,
+                {
+                  method:
+                    endpoint.method,
+
+                  headers,
+
+                  body:
+                    body
+                      ? JSON.stringify(body)
+                      : undefined
+                }
+              );
+
+
+            const text =
+              await response.text();
+
+            let formatted =
+              text;
+
+
+            try {
+
+              formatted =
+                JSON.stringify(
+                  JSON.parse(text),
+                  null,
+                  2
+                );
+
+            }
+
+            catch (error) {
+              /* resposta não JSON */
+            }
+
+
+            status.textContent =
+              response.status +
+              ' ' +
+              response.statusText;
+
+
+            status.className =
+              'live-status ' +
+              (
+                response.ok
+                  ? 'status-ok'
+                  : 'status-error'
+              );
+
+
+            result.textContent =
+              formatted ||
+              'Sem conteúdo';
+
+
+            if (
+              endpoint.path === '/login' &&
+              response.ok
+            ) {
+
+              try {
+
+                const data =
+                  JSON.parse(text);
+
+                if (data.token) {
+
+                  sessionStorage.setItem(
+                    tokenKey,
+                    data.token
+                  );
+
+                  updateTokenState();
+
+                }
+
+              }
+
+              catch (error) {
+                /* ignora resposta inesperada */
+              }
+
+            }
+
+          }
+
+          catch (error) {
+
+            status.textContent =
+              'Falha de conexão';
+
+            status.className =
+              'live-status status-error';
+
+            result.textContent =
+              error.message;
+
+          }
+
+          finally {
+
+            button.disabled = false;
+
+            button.textContent =
+              'Executar requisição';
+
+          }
+
+        }
+      )
+  );
+
+  </script>
+
+</body>
+</html>

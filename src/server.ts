@@ -1,9 +1,6 @@
 import express from "express";
 import path from "path";
 
-import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "./docs/swagger";
-
 import { prisma } from "./database/prisma";
 
 import userRoutes from "./modules/users/user.routes";
@@ -133,33 +130,6 @@ app.get("/api/stats", async(req,res)=>{
 
 
 
-// Swagger
-
-app.use(
-
-    "/api-docs",
-
-    swaggerUi.serve,
-
-    swaggerUi.setup(
-
-        swaggerSpec,
-
-        {
-
-            customSiteTitle:
-            "DevFlow API - Documentação"
-
-        }
-
-    )
-
-);
-
-
-
-
-
 // Rotas API
 
 app.use("/api", userRoutes);
@@ -187,5 +157,20 @@ app.listen(PORT,()=>{
         `Servidor rodando na porta ${PORT}`
     );
 
+
+});
+
+
+// Documentação técnica interativa
+
+app.get("/api-reference", (req, res) => {
+
+    res.sendFile(
+        path.join(
+            __dirname,
+            "views",
+            "api-reference.html"
+        )
+    );
 
 });
