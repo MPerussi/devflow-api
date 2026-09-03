@@ -5,7 +5,7 @@ import authRoutes from "./modules/users/auth.routes";
 import projectRoutes from "./modules/projects/project.routes";
 import taskRoutes from "./modules/tasks/task.routes";
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "C:/Users/reload/Desktop/DevFlow/backend/src/docs/swagger";
+import { swaggerSpec } from "./docs/swagger";
 
 const app = express();
 
