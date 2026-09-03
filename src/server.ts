@@ -132,6 +132,23 @@ app.get("/api/stats", async(req,res)=>{
 
 // Rotas API
 
+app.get("/api", (req, res) => {
+
+    return res.json({
+        name: "DevFlow API",
+        status: "online",
+        documentation: `${req.protocol}://${req.get("host")}/api-reference`,
+        endpoints: {
+            authentication: "/api/login",
+            users: "/api/users",
+            projects: "/api/projects",
+            tasks: "/api/tasks",
+            stats: "/api/stats"
+        }
+    });
+
+});
+
 app.use("/api", userRoutes);
 
 app.use("/api", authRoutes);
