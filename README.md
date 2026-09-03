@@ -1,5 +1,8 @@
 # DevFlow API
 
+![DevFlow API](public/DevFlowAPI.png)
+
+
 API REST para gerenciamento de projetos e tarefas, com autenticação JWT, PostgreSQL e Prisma ORM.
 
 ## 🚀 API em produção
