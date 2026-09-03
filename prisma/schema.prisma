@@ -2,16 +2,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-
-
 model User {
-
   id String @id @default(uuid())
 
   name String
@@ -23,13 +19,9 @@ model User {
   createdAt DateTime @default(now())
 
   projects Project[]
-
 }
 
-
-
 model Project {
-
   id String @id @default(uuid())
 
   title String
@@ -45,13 +37,9 @@ model Project {
   tasks Task[]
 
   createdAt DateTime @default(now())
-
 }
 
-
-
 model Task {
-
   id String @id @default(uuid())
 
   title String
@@ -63,5 +51,14 @@ model Task {
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
+}
 
+model ApiStats {
+  id String @id @default(uuid())
+
+  visits Int @default(0)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
 }
