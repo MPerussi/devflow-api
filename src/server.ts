@@ -1,26 +1,166 @@
 import express from "express";
+import path from "path";
+
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./docs/swagger";
+
+import { prisma } from "./database/prisma";
 
 import userRoutes from "./modules/users/user.routes";
 import authRoutes from "./modules/users/auth.routes";
 import projectRoutes from "./modules/projects/project.routes";
 import taskRoutes from "./modules/tasks/task.routes";
-import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "./docs/swagger";
+
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.json({
-    name: "DevFlow API",
-    status: "online",
-    documentation: "/api-docs"
-  });
-});
 
 app.use(express.json());
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Arquivos públicos
+app.use(
+    express.static(
+        path.join(__dirname, "../public")
+    )
+);
+
+
+
+// Página principal
+
+app.get("/", async (req, res) => {
+
+
+    let stats = await prisma.apiStats.findFirst();
+
+
+
+    if (!stats) {
+
+        stats = await prisma.apiStats.create({
+
+            data: {
+                visits: 0
+            }
+
+        });
+
+    }
+
+
+
+    await prisma.apiStats.update({
+
+        where:{
+            id: stats.id
+        },
+
+        data:{
+            visits:{
+                increment:1
+            }
+        }
+
+    });
+
+
+
+    res.sendFile(
+
+        path.join(
+            __dirname,
+            "views",
+            "home.html"
+        )
+
+    );
+
+
+});
+
+
+
+
+
+// Página de testes amigável
+
+app.get("/test-api", (req,res)=>{
+
+
+    res.sendFile(
+
+        path.join(
+            __dirname,
+            "views",
+            "test-api.html"
+        )
+
+    );
+
+
+});
+
+
+
+
+
+// Estatísticas públicas
+
+app.get("/api/stats", async(req,res)=>{
+
+
+    const stats =
+        await prisma.apiStats.findFirst();
+
+
+
+    return res.json({
+
+        status:"online",
+
+        visits:
+        stats?.visits || 0,
+
+        database:"connected"
+
+    });
+
+
+});
+
+
+
+
+
+// Swagger
+
+app.use(
+
+    "/api-docs",
+
+    swaggerUi.serve,
+
+    swaggerUi.setup(
+
+        swaggerSpec,
+
+        {
+
+            customSiteTitle:
+            "DevFlow API - Documentação"
+
+        }
+
+    )
+
+);
+
+
+
+
+
+// Rotas API
 
 app.use("/api", userRoutes);
 
@@ -30,32 +170,22 @@ app.use("/api", projectRoutes);
 
 app.use("/api", taskRoutes);
 
-app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerSpec, {
-
-        customSiteTitle: "DevFlow API - Documentação",
-
-        customCss: `
-            .swagger-ui .authorize span {
-                font-size: 0;
-            }
-
-            .swagger-ui .authorize span::after {
-                content: "Autorizar";
-                font-size: 14px;
-            }
-        `
-
-    })
-);
 
 
-app.listen(3000,()=>{
+
+
+
+const PORT =
+process.env.PORT || 3000;
+
+
+
+app.listen(PORT,()=>{
+
 
     console.log(
-        "Servidor rodando na porta 3000"
+        `Servidor rodando na porta ${PORT}`
     );
+
 
 });

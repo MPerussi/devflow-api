@@ -32,6 +32,7 @@ const controller = new AuthController();
  *         description: Login realizado com sucesso
  *       401:
  *         description: Credenciais inválidas
+ *     security: []
  */
 
 router.post(

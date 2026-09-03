@@ -9,45 +9,102 @@ export class TaskRepository {
         projectId: string;
     }) {
 
-        return await prisma.task.create({
+
+        console.log("Dados recebidos para criar task:", data);
+
+
+
+        const task = await prisma.task.create({
 
             data
 
         });
 
+
+
+        console.log("Task criada no banco:", task);
+
+
+
+        const totalTasks = await prisma.task.count();
+
+
+
+        console.log(
+            "Total de tasks no banco:",
+            totalTasks
+        );
+
+
+
+        return task;
+
     }
+
+
 
 
 
     async findByProject(projectId: string) {
 
-        return await prisma.task.findMany({
+
+        console.log(
+            "Buscando tasks do projeto:",
+            projectId
+        );
+
+
+
+        const tasks = await prisma.task.findMany({
 
             where: {
+
                 projectId
+
             },
 
             orderBy: {
+
                 createdAt: "desc"
+
             }
 
         });
 
+
+
+        console.log(
+            "Tasks encontradas:",
+            tasks
+        );
+
+
+
+        return tasks;
+
     }
+
+
 
 
 
     async findById(id: string) {
 
+
         return await prisma.task.findUnique({
 
             where: {
+
                 id
+
             }
 
         });
 
+
     }
+
+
 
 
 
@@ -56,31 +113,43 @@ export class TaskRepository {
         status: string
     ) {
 
+
         return await prisma.task.update({
 
             where: {
+
                 id
+
             },
 
             data: {
+
                 status
+
             }
 
         });
+
 
     }
 
 
 
+
+
     async delete(id: string) {
+
 
         return await prisma.task.delete({
 
             where: {
+
                 id
+
             }
 
         });
+
 
     }
 

@@ -108,9 +108,34 @@ router.put(
     (req, res) =>
         controller.update(req, res)
 );
-
-
-
+/**
+ * @swagger
+ * /tasks/{id}:
+ *   delete:
+ *     summary: Remover uma tarefa
+ *     tags:
+ *       - Tasks
+ *     security:
+ *       - jwtAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Tarefa removida
+ *       400:
+ *         description: Tarefa não encontrada ou dados inválidos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: Token inválido ou não informado
+ */
 router.delete(
     "/tasks/:id",
     authMiddleware,

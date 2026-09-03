@@ -32,15 +32,12 @@ const controller = new UserController();
  *     responses:
  *       201:
  *         description: Usuário criado
+ *     security: []
  */
 
 router.post(
     "/users",
     (req,res)=>controller.create(req,res)
-);
-router.post(
-    "/users",
-    (req, res) => controller.create(req,res)
 );
 
 
