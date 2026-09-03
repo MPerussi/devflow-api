@@ -1,50 +1,65 @@
 # DevFlow API
 
-![DevFlow](public/DevFlowAPI.png)
+API REST para gerenciamento de projetos e tarefas, com autenticação JWT, PostgreSQL e Prisma ORM.
 
-API REST para gerenciamento de projetos e tarefas, com autenticacao JWT, PostgreSQL e Prisma ORM.
+## 🚀 API em produção
+
+A versão online do DevFlow API está disponível em:
+
+👉 **https://devflow-api-l4fk.onrender.com/**
+
+### 📚 Documentação interativa
+
+Acesse a documentação da API diretamente pelo navegador:
+
+👉 **https://devflow-api-l4fk.onrender.com/api-reference**
+
+Através da documentação, é possível executar requisições reais e visualizar os respectivos status HTTP e dados retornados em JSON.
 
 ## Sobre o projeto
 
-O DevFlow e uma aplicacao backend desenvolvida para demonstrar uma API organizada por modulos, com rotas protegidas e uma documentacao tecnica interativa propria. Pela interface da documentacao, e possivel executar requisicoes reais e visualizar o status HTTP e o JSON retornado.
+O DevFlow é uma aplicação backend desenvolvida para demonstrar uma API organizada por módulos, com autenticação, rotas protegidas, persistência de dados e documentação técnica interativa.
+
+O projeto também possui uma versão hospedada, permitindo testar a API sem necessidade de executar o servidor localmente.
 
 ## Funcionalidades
 
-- Cadastro de usuarios
-- Login com autenticacao JWT
-- Criacao e listagem de projetos
-- Criacao, consulta, atualizacao e remocao de tarefas
-- Middleware para protecao das rotas
-- Contador de visitas da API
-- Documentacao tecnica interativa no navegador
+* Cadastro de usuários
+* Login com autenticação JWT
+* Criação e listagem de projetos
+* Criação, consulta, atualização e remoção de tarefas
+* Middleware para proteção das rotas
+* Contador de visitas da API
+* Documentação técnica interativa
+* API disponível em ambiente de produção
 
 ## Tecnologias
 
-- Node.js
-- TypeScript
-- Express
-- Prisma ORM
-- PostgreSQL
-- JSON Web Token (JWT)
+* Node.js
+* TypeScript
+* Express
+* Prisma ORM
+* PostgreSQL
+* JSON Web Token (JWT)
 
-## Como executar
+## Como executar localmente
 
-### 1. Clonar o repositorio
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/MPerussi/devflow-api.git
 cd devflow-api
 ```
 
-### 2. Instalar as dependencias
+### 2. Instalar as dependências
 
 ```bash
 npm install
 ```
 
-### 3. Configurar as variaveis de ambiente
+### 3. Configurar as variáveis de ambiente
 
-Crie um arquivo `.env` na pasta `backend`:
+Crie um arquivo `.env`:
 
 ```env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/devflow"
@@ -52,15 +67,15 @@ JWT_SECRET="uma_chave_secreta_forte"
 PORT=3000
 ```
 
-O arquivo `.env.example` pode ser usado como referencia.
+O arquivo `.env.example` pode ser utilizado como referência.
 
-### 4. Executar as migracoes
+### 4. Executar as migrações
 
 ```bash
 npx prisma migrate deploy
 ```
 
-Durante o desenvolvimento, tambem e possivel usar:
+Durante o desenvolvimento, também é possível utilizar:
 
 ```bash
 npx prisma migrate dev
@@ -68,43 +83,57 @@ npx prisma migrate dev
 
 ### 5. Iniciar o servidor
 
-Na pasta `backend`:
-
 ```bash
 npm run dev
 ```
 
-O servidor sera iniciado em `http://localhost:3000`.
+O servidor será iniciado em:
 
-## Documentacao interativa
+```text
+http://localhost:3000
+```
 
-Acesse `http://localhost:3000/api-reference` para seguir o fluxo completo da API:
+## Documentação interativa
 
-1. Crie um usuario em `POST /users`.
-2. Faca login em `POST /login` e receba o JWT.
-3. Crie um projeto em `POST /projects`.
+### Produção
+
+Acesse:
+
+👉 **https://devflow-api-l4fk.onrender.com/api-reference**
+
+### Desenvolvimento local
+
+Após iniciar o servidor:
+
+👉 **http://localhost:3000/api-reference**
+
+### Fluxo de utilização
+
+1. Crie um usuário em `POST /api/users`.
+2. Faça login em `POST /api/login` e receba o JWT.
+3. Crie um projeto em `POST /api/projects`.
 4. Liste os projetos e copie o `projectId`.
-5. Crie uma tarefa em `POST /tasks`.
+5. Crie uma tarefa em `POST /api/tasks`.
 6. Liste as tarefas do projeto.
 7. Atualize o status da tarefa.
-8. Remova a tarefa quando necessario.
+8. Remova a tarefa quando necessário.
 
-Depois do login, o token e armazenado temporariamente na sessao do navegador e enviado automaticamente nas rotas protegidas.
+Após o login, o token é armazenado temporariamente na sessão do navegador e enviado automaticamente nas rotas protegidas.
 
 ## Endpoints
 
-| Metodo | Rota | Autenticacao | Descricao |
-| --- | --- | --- | --- |
-| POST | `/api/users` | Nao | Cria um usuario |
-| POST | `/api/login` | Nao | Realiza login e retorna um JWT |
-| GET | `/api/users` | JWT | Lista usuarios |
-| POST | `/api/projects` | JWT | Cria um projeto |
-| GET | `/api/projects` | JWT | Lista os projetos do usuario |
-| POST | `/api/tasks` | JWT | Cria uma tarefa |
-| GET | `/api/tasks/:projectId` | JWT | Lista tarefas de um projeto |
-| PUT | `/api/tasks/:id` | JWT | Atualiza o status de uma tarefa |
-| DELETE | `/api/tasks/:id` | JWT | Remove uma tarefa |
-| GET | `/api/stats` | Nao | Retorna o status e as estatisticas da API |
+| Método | Rota                    | Autenticação | Descrição                                 |
+| ------ | ----------------------- | ------------ | ----------------------------------------- |
+| POST   | `/api/users`            | Não          | Cria um usuário                           |
+| POST   | `/api/login`            | Não          | Realiza login e retorna um JWT            |
+| GET    | `/api/users`            | JWT          | Lista usuários                            |
+| POST   | `/api/projects`         | JWT          | Cria um projeto                           |
+| GET    | `/api/projects`         | JWT          | Lista os projetos do usuário              |
+| POST   | `/api/tasks`            | JWT          | Cria uma tarefa                           |
+| GET    | `/api/tasks/:projectId` | JWT          | Lista tarefas de um projeto               |
+| PUT    | `/api/tasks/:id`        | JWT          | Atualiza o status de uma tarefa           |
+| DELETE | `/api/tasks/:id`        | JWT          | Remove uma tarefa                         |
+| GET    | `/api/stats`            | Não          | Retorna o status e as estatísticas da API |
 
 ## Estrutura
 
@@ -119,20 +148,28 @@ src/
 ├── types/
 ├── views/
 └── server.ts
+
 prisma/
 └── schema.prisma
+
 public/
 └── code.png
 ```
 
 ## Scripts
 
-| Comando | Funcao |
-| --- | --- |
-| `npm run dev` | Inicia o servidor com recarregamento automatico |
-| `npx prisma migrate dev` | Cria e aplica migracoes durante o desenvolvimento |
-| `npx prisma migrate deploy` | Aplica migracoes existentes |
+| Comando                     | Função                                            |
+| --------------------------- | ------------------------------------------------- |
+| `npm run dev`               | Inicia o servidor com recarregamento automático   |
+| `npx prisma migrate dev`    | Cria e aplica migrações durante o desenvolvimento |
+| `npx prisma migrate deploy` | Aplica migrações existentes                       |
 
-## Licenca
+## Status do projeto
 
-Projeto desenvolvido para fins de estudo e portfolio.
+🟢 **Em desenvolvimento**
+
+O DevFlow API continuará sendo desenvolvido com o objetivo de adicionar novas funcionalidades e aprimorar aspectos como arquitetura, testes automatizados, segurança, validação e boas práticas de Engenharia de Software.
+
+## Licença
+
+Projeto desenvolvido para fins de estudo e portfólio.
