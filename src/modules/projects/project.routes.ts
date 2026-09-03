@@ -17,7 +17,7 @@ const controller = new ProjectController();
  *     tags:
  *       - Projects
  *     security:
-  - jwtAuth: []
+*       - jwtAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -52,7 +52,7 @@ authMiddleware,
  *     tags:
  *       - Projects
  *     security:
-  - jwtAuth: []
+*       - jwtAuth: []
  *     responses:
  *       200:
  *         description: Lista de projetos

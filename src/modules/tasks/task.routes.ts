@@ -79,7 +79,7 @@ router.get(
  *     tags:
  *       - Tasks
  *     security:
- *       - jwtAuth: []
+*       - jwtAuth: []
  *     parameters:
  *       - in: path
  *         name: id
