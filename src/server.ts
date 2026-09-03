@@ -134,18 +134,13 @@ app.get("/api/stats", async(req,res)=>{
 
 app.get("/api", (req, res) => {
 
-    return res.json({
-        name: "DevFlow API",
-        status: "online",
-        documentation: `${req.protocol}://${req.get("host")}/api-reference`,
-        endpoints: {
-            authentication: "/api/login",
-            users: "/api/users",
-            projects: "/api/projects",
-            tasks: "/api/tasks",
-            stats: "/api/stats"
-        }
-    });
+    return res.sendFile(
+        path.join(
+            __dirname,
+            "views",
+            "api-root.html"
+        )
+    );
 
 });
 

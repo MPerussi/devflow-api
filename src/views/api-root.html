@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevFlow API</title>
+  <style>
+    :root { color-scheme: dark; --bg: #080b12; --surface: #111722; --line: rgba(255,255,255,.1); --text: #f8fafc; --muted: #9aa8bc; --blue: #68a0ff; --green: #39d39a; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; color: var(--text); background: radial-gradient(circle at 15% 10%, rgba(104,160,255,.18), transparent 30%), radial-gradient(circle at 90% 90%, rgba(57,211,154,.1), transparent 30%), var(--bg); font: 15px/1.6 Inter, ui-sans-serif, system-ui, sans-serif; }
+    .panel { width: min(720px, 100%); padding: clamp(28px, 6vw, 58px); background: rgba(17,23,34,.9); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 24px 70px rgba(0,0,0,.35); }
+    .brand { display: flex; align-items: center; gap: 12px; color: var(--muted); font-weight: 700; }
+    .brand img { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; }
+    h1 { margin: 38px 0 12px; font-size: clamp(38px, 8vw, 68px); line-height: .98; letter-spacing: -.06em; }
+    .intro { max-width: 570px; margin: 0; color: var(--muted); font-size: 17px; }
+    .status { display: inline-flex; align-items: center; gap: 9px; margin-top: 25px; padding: 7px 11px; color: var(--green); background: rgba(57,211,154,.1); border: 1px solid rgba(57,211,154,.18); border-radius: 999px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 0 4px rgba(57,211,154,.12); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    a { padding: 12px 17px; border-radius: 8px; color: var(--text); text-decoration: none; background: var(--blue); font-weight: 800; transition: transform .2s, filter .2s; }
+    a.secondary { background: transparent; border: 1px solid var(--line); }
+    a:hover { filter: brightness(1.12); transform: translateY(-2px); }
+    .routes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 38px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .route { padding: 11px 13px; color: var(--muted); background: rgba(255,255,255,.03); border-radius: 8px; font: 12px ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .route strong { margin-right: 8px; color: var(--green); }
+    footer { margin-top: 34px; color: #64748b; font-size: 12px; }
+    @media (max-width: 520px) { .panel { border-radius: 18px; } .routes { grid-template-columns: 1fr; } .actions a { width: 100%; text-align: center; } }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <div class="brand"><img src="/code.png" alt="DevFlow"> DevFlow API</div>
+    <h1>API online.</h1>
+    <p class="intro">Uma API para gerenciamento de projetos e tarefas, com autenticação JWT e endpoints prontos para integração.</p>
+    <div class="status"><span class="dot"></span> Sistema online</div>
+    <div class="actions">
+      <a href="/api-reference">Documentação interativa</a>
+      <a class="secondary" href="/">Página principal</a>
+    </div>
+    <div class="routes" aria-label="Principais rotas">
+      <div class="route"><strong>POST</strong>/api/login</div>
+      <div class="route"><strong>GET</strong>/api/users</div>
+      <div class="route"><strong>GET</strong>/api/projects</div>
+      <div class="route"><strong>GET</strong>/api/tasks/:projectId</div>
+    </div>
+    <footer>DevFlow API · Express + TypeScript + Prisma</footer>
+  </main>
+</body>
+</html>
